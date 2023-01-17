@@ -35,7 +35,7 @@ public class User {
 
    @OneToOne/*cascade = CascadeType.ALL)*/
    @MapsId
-   @JoinColumn(name = "id")
+   @JoinColumn(name = "car_id")
    private Car userCar;
 
    public User() {}
