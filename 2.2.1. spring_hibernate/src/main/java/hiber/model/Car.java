@@ -1,19 +1,16 @@
 package hiber.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Component("carBean")
 @Table(name = "cars", schema = "project_2_2_1")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_id")
-    private Long id;
+    //@Column(name = "car_id")
+    private Long car_id;
 
     @Column(name = "model")
     private String model;
@@ -21,17 +18,16 @@ public class Car {
     @Column(name = "series")
     private int series;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToOne(mappedBy = "car")
+    public User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Car(String model, int series) {
         this.model = model;
@@ -41,12 +37,12 @@ public class Car {
     public Car() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getCar_id() {
+        return car_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCar_id(Long car_id) {
+        this.car_id = car_id;
     }
 
     public String getModel() {
@@ -68,9 +64,22 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "car_id=" + id +
+                "car_id=" + car_id +
                 ", model='" + model + '\'' +
                 ", series=" + series +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return series == car.series && car_id.equals(car.car_id) && model.equals(car.model) && user.equals(car.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(car_id, model, series, user);
     }
 }

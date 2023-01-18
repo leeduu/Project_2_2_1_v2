@@ -18,13 +18,16 @@ public class MainApp {
       //User user1 = context.getBean("userBean", User.class);
 
       //Car userCar1 = new Car("Volvo", 1234);;
-      userService.add(new User("User1", "Lastname1", "user1@mail.ru")/*.setUserCar(userCar1)*/);
+      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
       userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
       userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
       userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
 
-//      userService.add(new Car("Volvo", 1234));
-//      userService.add(new Car("Mercedes", 5678));
+      userService.add(new Car("Volvo", 1234));
+      userService.add(new Car("Mercedes", 5678));
+      userService.add(new Car("Skoda", 9012));
+      userService.add(new Car("Mazda", 3456));
+      List<Car> cars = userService.listCars();
 
       List<User> users = userService.listUsers();
       for (User user : users) {
@@ -34,6 +37,9 @@ public class MainApp {
          System.out.println("Email = " + user.getEmail());
          System.out.println();
       }
+
+      User searchingForUser = userService.getUserByCar("Skoda", 9012);
+      System.out.println(searchingForUser.getEmail());
 
       context.close();
    }

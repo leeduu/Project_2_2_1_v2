@@ -1,17 +1,15 @@
 package hiber.model;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Component("userBean")
 @Table(name = "users", schema = "project_2_2_1")
 public class User {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "user_id")
+   //@Column(name = "user_id")
    private Long id;
 
    @Column(name = "name")
@@ -23,9 +21,9 @@ public class User {
    @Column(name = "email")
    private String email;
 
-//   @OneToOne
-//   @MapsId
-//   private Car car;
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "car_id")
+   private Car car;
 
 //   @Autowired
 //   public User(Car car) {
@@ -33,13 +31,20 @@ public class User {
 //      this.car = car;
 //   }
 
-   @OneToOne/*cascade = CascadeType.ALL)*/
-   @MapsId
-   @JoinColumn(name = "car_id")
-   private Car userCar;
+//   @OneToOne/*cascade = CascadeType.ALL)*/
+//   @MapsId
+//   @JoinColumn(name = "car_id", referencedColumnName = "user_id")
+//   private Car car;
 
    public User() {}
    
+   public User(String firstName, String lastName, String email, Car car) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.email = email;
+      this.car = car;
+   }
+
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -88,12 +93,16 @@ public class User {
               '}';
    }
 
-   public Car getUserCar() {
-      return userCar;
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User user = (User) o;
+      return id.equals(user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && Objects.equals(car, user.car);
    }
 
-   public Car setUserCar(Car userCar) {
-      this.userCar = userCar;
-      return userCar;
+   @Override
+   public int hashCode() {
+      return Objects.hash(id, firstName, lastName, email, car);
    }
 }
