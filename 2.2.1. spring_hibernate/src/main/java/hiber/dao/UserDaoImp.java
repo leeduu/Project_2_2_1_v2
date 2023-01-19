@@ -15,12 +15,6 @@ public class UserDaoImp implements UserDao {
    @Autowired
    private SessionFactory sessionFactory;
 
-//   private final SessionFactory sessionFactory;
-//
-//   public UserDaoImp(SessionFactory sessionFactory) {
-//      this.sessionFactory = sessionFactory;
-//   }
-
    @Override
    public void add(User user) {
       sessionFactory.getCurrentSession().save(user);
@@ -45,7 +39,6 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
-   @Override
    public User getUserByCar(String model, int series) {
       TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(
               "FROM User as user where user.car.model = :model and user.car.series = :series", User.class);
@@ -53,11 +46,4 @@ public class UserDaoImp implements UserDao {
       query.setParameter("series", series);
       return query.getSingleResult();
    }
-
-//   @Override
-//   public User getUserByCar(User user) {
-//      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(
-//              "FROM User u INNER JOIN Car c ON u.id = c.id", User.class);
-//      return query.getSingleResult();
-//   }
 }

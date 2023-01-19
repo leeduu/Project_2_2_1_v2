@@ -9,7 +9,6 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "car_id")
     private Long car_id;
 
     @Column(name = "model")
@@ -20,14 +19,6 @@ public class Car {
 
     @OneToOne(mappedBy = "car")
     public User user;
-
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 
     public Car(String model, int series) {
         this.model = model;

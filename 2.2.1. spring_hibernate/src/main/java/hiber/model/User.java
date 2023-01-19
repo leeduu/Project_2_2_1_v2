@@ -9,7 +9,6 @@ public class User {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   //@Column(name = "user_id")
    private Long id;
 
    @Column(name = "name")
@@ -25,17 +24,6 @@ public class User {
    @JoinColumn(name = "car_id")
    private Car car;
 
-//   @Autowired
-//   public User(Car car) {
-//      System.out.println("User bean is created");
-//      this.car = car;
-//   }
-
-//   @OneToOne/*cascade = CascadeType.ALL)*/
-//   @MapsId
-//   @JoinColumn(name = "car_id", referencedColumnName = "user_id")
-//   private Car car;
-
    public User() {}
    
    public User(String firstName, String lastName, String email, Car car) {
@@ -43,12 +31,6 @@ public class User {
       this.lastName = lastName;
       this.email = email;
       this.car = car;
-   }
-
-   public User(String firstName, String lastName, String email) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.email = email;
    }
 
    public Long getId() {

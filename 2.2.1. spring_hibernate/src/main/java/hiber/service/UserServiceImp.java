@@ -1,12 +1,8 @@
 package hiber.service;
 
 import hiber.dao.UserDao;
-import hiber.dao.UserDaoImp;
 import hiber.model.Car;
 import hiber.model.User;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +10,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
-
-//   public UserServiceImp(UserDao userDao) {
-//      this.userDao = userDao;
-//   }
-
    private final UserDao userDao;
 
    public UserServiceImp(UserDao userDao) {
@@ -54,5 +45,4 @@ public class UserServiceImp implements UserService {
    public User getUserByCar(String model, int series) {
       return userDao.getUserByCar(model, series);
    }
-
 }
